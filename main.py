@@ -6,7 +6,6 @@ from perception.detector import Detector
 from utils.map import load_calibration, pixel_to_robot
 from robot.main import DobotController
 from utils.camera import Camera
-from utils.plot import plot_results
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
