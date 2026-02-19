@@ -23,7 +23,7 @@ def main():
 
     try:
         H = load_calibration("calibration.json")
-        print(f"Loaded homography matrix:\n{H}")
+        print(f"Loaded homography matrix H:\n{H}")
     except Exception as e:
         print(f"Error loading calibration: {e}")
         return
@@ -76,7 +76,7 @@ def main():
 
         #save annotated image
         os.makedirs(OUTPUT_DIR, exist_ok=True)
-        annotated_path = os.path.join(OUTPUT_DIR, "annotated_detections.png")
+        annotated_path = os.path.join(OUTPUT_DIR, "annotated.jpg")
         cv2.imwrite(annotated_path, display_img)
         print(f"Annotated image saved to {annotated_path}")
 
@@ -97,7 +97,7 @@ def main():
                 robot.pick_and_place(x, y)
             robot.disconnect()
         elif args.mode == "execute":
-            print("No target positions to execute. Exiting.")
+            print("No target.")
 
         return detected_objects, display_img
 
