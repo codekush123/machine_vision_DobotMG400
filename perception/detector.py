@@ -6,9 +6,11 @@ class Detector:
     def __init__(self):
 
         self.colors = {
-            "red": ([0, 0, 100], [50, 50, 255]),
-            "green": ([0, 100, 0], [50, 255, 50]),
-            "blue": ([100, 0, 0], [255, 50, 50])
+            #make red color brighter by increasing the lower bound of saturation and value
+            # 
+            "red": ([0, 150, 150], [10, 255, 255]),
+            "green": ([40, 100, 100], [80, 255, 255]),
+            "blue": ([100, 100, 100], [140, 255, 255])
         }
 
     def find_objects(self, image, color_name="any", shape_type="any"):
@@ -23,6 +25,8 @@ class Detector:
         else:
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             _, mask = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY_INV)
+            cv2.imshow("Initial Mask", mask)
+            cv2.waitKey(0)
 
 
         #morphology
@@ -46,7 +50,7 @@ class Detector:
             else:
                 circularity = 0
 
-            detected_shape = "circle" if circularity > 0.7 else "square"
+            detected_shape = "circle" if circularity > 0.8 else "square"
 
             if shape_type != "any" and detected_shape != shape_type:
                 continue

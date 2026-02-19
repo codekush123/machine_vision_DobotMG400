@@ -41,7 +41,7 @@ def calibration():
     # save the homography to json file
 
     homography_data = {
-        "homography_matrix": H.tolist(),
+        "homography": H.tolist(),
         "image_size": [img.shape[1], img.shape[0]]}
     
     with open("callibration.json", "w") as f:

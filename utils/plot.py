@@ -7,7 +7,7 @@ import os
 current_dir = os.path.dirname(__file__)
 # Go up one level to the project root, then into 'outputs'
 OUTPUT_FOLDER = os.path.join(current_dir, "..", "outputs")
-image_path = os.path.join(OUTPUT_FOLDER, "camera_detection.png")
+image_path = os.path.join(OUTPUT_FOLDER, "last_capture.jpg")
 
 img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
