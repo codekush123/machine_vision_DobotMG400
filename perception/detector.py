@@ -14,6 +14,7 @@ class Detector:
     def find_objects(self, image, color_name="any", shape_type="any"):
         #convert the image to HSV
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        
 
         #create a mask for the specified color
         if color_name in self.colors:
@@ -21,7 +22,7 @@ class Detector:
             mask = cv2.inRange(hsv, np.array(lower), np.array(upper))
         else:
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            _, mask = cv2.threshold(gray, 110, 255, cv2.THRESH_BINARY_INV)
+            _, mask = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY_INV)
 
 
         #morphology
@@ -45,7 +46,7 @@ class Detector:
             else:
                 circularity = 0
 
-            detected_shape = "circle" if circularity > 0.8 else "square"
+            detected_shape = "circle" if circularity > 0.7 else "square"
 
             if shape_type != "any" and detected_shape != shape_type:
                 continue
