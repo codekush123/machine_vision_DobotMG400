@@ -3,10 +3,10 @@ import argparse
 import numpy as np
 import os
 from perception.detector import Detector
-from utils.camera import Camera
-from utils.map import load_calibration, pixel_to_robot
+from utilites.camera import Camera
+from utilites.map import load_calibration, pixel_to_robot
 from robot.main import DobotController
-from utils.camera import Camera
+from utilites.camera import Camera
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
@@ -39,7 +39,7 @@ def main():
             print(f"Failed to read input image: {args.input}")
             return None
     else:
-        image_path = os.path.join(OUTPUT_DIR, "last_capture.jpg")
+        image_path = os.path.join(OUTPUT_DIR, "last_capture_image.jpg")
         if not os.path.exists(image_path):
             print(f"Fallback image not found: {image_path}")
             return None
@@ -48,7 +48,7 @@ def main():
             print(f"Failed to read fallback image: {image_path}")
             return None
 
-    def run_detection_and_process(img):
+    def detection_and_process(img):
         display_img = img.copy()
         detector = Detector()
         detected_objects = detector.find_objects(display_img, args.color, args.shape)
@@ -107,7 +107,7 @@ def main():
         return None
 
     # run detection on camera image and return (do not fallback on empty detections)
-    detected_objects, annotated = run_detection_and_process(image)
+    detected_objects, annotated = detection_and_process(image)
     return annotated
 
 if __name__ == "__main__":

@@ -11,7 +11,6 @@ def mouse_click(event, x, y, flags, param):
         print(f"Clicked at: ({x}, {y})")
 
 def calibration():
-
     curr_dir = os.path.dirname(__file__)
     OUTPUT_FOLDER = os.path.join(curr_dir, "..", "outputs")
     image_path = os.path.join(OUTPUT_FOLDER, "last_capture_image.jpg")
