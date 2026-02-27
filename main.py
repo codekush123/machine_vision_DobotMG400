@@ -76,7 +76,7 @@ def main():
 
         #save annotated image
         os.makedirs(OUTPUT_DIR, exist_ok=True)
-        annotated_path = os.path.join(OUTPUT_DIR, "annotated.jpg")
+        annotated_path = os.path.join(OUTPUT_DIR, "final_annotated_image.jpg")
         cv2.imwrite(annotated_path, display_img)
         print(f"Annotated image saved to {annotated_path}")
 
