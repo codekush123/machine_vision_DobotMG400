@@ -3,11 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-# Get the directory where app_streamlit.py is located
 current_dir = os.path.dirname(__file__)
-# Go up one level to the project root, then into 'outputs'
 OUTPUT_FOLDER = os.path.join(current_dir, "..", "outputs")
-image_path = os.path.join(OUTPUT_FOLDER, "last_capture.jpg")
+image_path = os.path.join(OUTPUT_FOLDER, "last_capture_image.jpg")
 
 img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
