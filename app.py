@@ -8,8 +8,8 @@ import streamlit as st
 
 from perception.detector import Detector
 from robot.main import DobotController
-from utils.camera import Camera
-from utils.map import pixel_to_robot
+from utilites.camera import Camera
+from utilites.map import pixel_to_robot
 
 
 ROOT = Path(__file__).resolve().parent

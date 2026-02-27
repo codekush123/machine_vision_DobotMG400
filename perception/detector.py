@@ -29,7 +29,7 @@ class Detector:
             cv2.waitKey(0)
 
 
-        #morphology
+        #morphology using 5 X 5 kernel
 
         kernel = np.ones((5, 5), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
@@ -54,7 +54,8 @@ class Detector:
 
             if shape_type != "any" and detected_shape != shape_type:
                 continue
-
+            
+            #
             M = cv2.moments(count)
             if M["m00"] != 0:
                 u = int(M["m10"] / M["m00"])

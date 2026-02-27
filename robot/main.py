@@ -21,14 +21,14 @@ class DobotController:
         self.safe_r = 0
 
         # drop box location (Coordinates)
-        self.drop_location = [275, -125, -75]
+        self.drop_location = [400, -125, -75]
         self.dashboard, self.move, self.feed = ConnectRobot(ip=ROBOT_IP, timeout_s=5.0)
         self.feed_thread = StartFeedbackThread(self.feed)
 
         #setup and enable robot (define the speed and acceleration ratio)
 
         SetupRobot(self.dashboard, speed_ratio=50, acc_ratio=50)
-        print(f"Connecting to robot at {self.ip}")
+        print(f"Connecting the Dobot MG400 from Table 1 {self.ip}")
 
     def pick_and_place(self, target_x, target_y):
         print(f"Starting pick and place at ({target_x:.1f}, {target_y:.1f})")
@@ -42,16 +42,16 @@ class DobotController:
 
         arrived = True
         if arrived:
-            print(f"Arrived at the pick location, activating suction")
+            print(f"Arrived at the pick location")
             ControlDigitalOutput(self.dashboard, output_index=1, status=1)
             sleep(1)
 
             current_pos = GetCurrentPosition()
 
-            print(f"Robot is at position: {current_pos}")
+            print(f"Robot is at {current_pos}")
 
         else:
-            print("Failed to arrive at the pick Location")
+            print("Failed to arrive")
 
         #lifting back to safe height
         print("Lifting")
@@ -61,20 +61,20 @@ class DobotController:
 
         #move to drop location
         px, py, pz = self.drop_location
-        print(f"Moving to Box at the drop location: {self.drop_location}")
+        print(f"Moving to drop location: {self.drop_location}")
         MoveJ(self.move, [px, py, self.safe_z, self.safe_r])
         sleep(1)
 
         #descend to place the object
         px, py, pz = self.drop_location
-        print(f"Moving to box at {px, py, self.place_z}")
+        print(f"Moving to box {px, py, self.place_z}")
         MoveL(self.move, [px, py, self.place_z, self.safe_r])
         sleep(1)
 
 
         arrived = True
         if arrived:
-            print(f"Move to drop location, deactivating suction")
+            print(f"Move to drop location")
 
         else:
             print("Failed to arrive at the drop Location")
@@ -87,9 +87,9 @@ class DobotController:
         sleep(1)
         ControlDigitalOutput(self.dashboard, output_index=2, status=0)
         sleep(1)
-        print("Pick and place operation completed")
+        print("Pick and place operation completed.....")
 
 
     def disconnect(self):
-        print("Disconnecting from robot")
+        print("Disconnecting")
         DisconnectRobot(self.dashboard, self.move, self.feed, self.feed_thread)

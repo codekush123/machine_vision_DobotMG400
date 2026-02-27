@@ -3,16 +3,16 @@ import argparse
 import numpy as np
 import os
 from perception.detector import Detector
-from utils.camera import Camera
-from utils.map import load_calibration, pixel_to_robot
+from utilites.camera import Camera
+from utilites.map import load_calibration, pixel_to_robot
 from robot.main import DobotController
-from utils.camera import Camera
+from utilites.camera import Camera
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
 def main():
-    #CLI argument parsing
+    #CLI argument parsing for both plan and execute mode
     parser = argparse.ArgumentParser(description="Dobot MG400 Object Detection and Pick-and-Place")
     parser.add_argument("--mode", choices=["plan", "execute"], required=True, help="Mode to run: 'plan' to detect and plan, 'execute' to run the robot")
     parser.add_argument("--color", type=str, default="any", help="Color to detect: 'red', 'green', 'blue', or 'any'")
@@ -23,7 +23,7 @@ def main():
 
     try:
         H = load_calibration("calibration.json")
-        print(f"Loaded homography matrix:\n{H}")
+        print(f"homography matrix:\n{H}")
     except Exception as e:
         print(f"Error loading calibration: {e}")
         return
@@ -39,7 +39,7 @@ def main():
             print(f"Failed to read input image: {args.input}")
             return None
     else:
-        image_path = os.path.join(OUTPUT_DIR, "last_capture.jpg")
+        image_path = os.path.join(OUTPUT_DIR, "last_capture_image.jpg")
         if not os.path.exists(image_path):
             print(f"Fallback image not found: {image_path}")
             return None
@@ -48,7 +48,7 @@ def main():
             print(f"Failed to read fallback image: {image_path}")
             return None
 
-    def run_detection_and_process(img):
+    def detection_and_process(img):
         display_img = img.copy()
         detector = Detector()
         detected_objects = detector.find_objects(display_img, args.color, args.shape)
@@ -76,7 +76,7 @@ def main():
 
         #save annotated image
         os.makedirs(OUTPUT_DIR, exist_ok=True)
-        annotated_path = os.path.join(OUTPUT_DIR, "annotated_detections.png")
+        annotated_path = os.path.join(OUTPUT_DIR, "final_annotated_detections.png")
         cv2.imwrite(annotated_path, display_img)
         print(f"Annotated image saved to {annotated_path}")
 
@@ -107,7 +107,7 @@ def main():
         return None
 
     # run detection on camera image and return (do not fallback on empty detections)
-    detected_objects, annotated = run_detection_and_process(image)
+    detected_objects, annotated = detection_and_process(image)
     return annotated
 
 if __name__ == "__main__":
