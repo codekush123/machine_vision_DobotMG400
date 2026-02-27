@@ -14,7 +14,7 @@ def calibration():
 
     curr_dir = os.path.dirname(__file__)
     OUTPUT_FOLDER = os.path.join(curr_dir, "..", "outputs")
-    image_path = os.path.join(OUTPUT_FOLDER, "last_capture.jpg")
+    image_path = os.path.join(OUTPUT_FOLDER, "last_capture_image.jpg")
 
     # first step: read image
 
