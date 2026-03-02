@@ -72,7 +72,9 @@ def main():
             text = f"{shape_type} (X:{rx:.1f}, Y:{ry:.1f})"
             cv2.putText(display_img, text, (u + 10, v - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
 
+
             print(f"Detected {shape_type} at pixel coordinates ({u}, {v}) -> Robot ccordinates (X: {rx:.1f}, Y: {ry:.1f})")
+
 
         #save annotated image
         os.makedirs(OUTPUT_DIR, exist_ok=True)

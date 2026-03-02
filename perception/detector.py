@@ -24,7 +24,7 @@ class Detector:
             mask = cv2.inRange(hsv, np.array(lower), np.array(upper))
         else:
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            _, mask = cv2.threshold(gray, 110, 255, cv2.THRESH_BINARY_INV)
+            _, mask = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY_INV)
             cv2.imshow("Initial Mask", mask)
             cv2.waitKey(0)
 
@@ -49,11 +49,15 @@ class Detector:
                 circularity = (4 * np.pi * area ) / (perimeter ** 2)
             else:
                 circularity = 0
-
             detected_shape = "circle" if circularity > 0.8 else "square"
+            print(f"circularity: {circularity:.3f}")
+
+            
 
             if shape_type != "any" and detected_shape != shape_type:
                 continue
+            
+            
             
             #
             M = cv2.moments(count)
