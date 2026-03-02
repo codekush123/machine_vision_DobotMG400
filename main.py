@@ -22,7 +22,7 @@ def main():
 
 
     try:
-        H = load_calibration("calibration.json")
+        H = load_calibration("callibration.json")
         print(f"Loaded homography matrix H:\n{H}")
     except Exception as e:
         print(f"Error loading calibration: {e}")
