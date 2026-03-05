@@ -29,9 +29,9 @@ class Detector:
             cv2.waitKey(0)
 
 
-        #morphology using 5 X 5 kernel
+        #morphology using 3 X 3 kernel
 
-        kernel = np.ones((5, 5), np.uint8)
+        kernel = np.ones((3, 3), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 
         #find contours
